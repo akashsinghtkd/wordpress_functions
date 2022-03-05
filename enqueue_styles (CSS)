@@ -1,0 +1,19 @@
+// Enqueue own styles
+function enqueue_custom_styles() {
+	wp_enqueue_style( 
+    'style-name', 
+    get_template_directory_uri() .'source_url', 
+    array('Dependencies'), 
+    Version, 
+    'Media' 
+  );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_custom_styles' );
+
+
+
+Where to enqueue?
+1) Front end => wp_enqueue_scripts
+2) Admin => admin_enqueue_scripts
+3) Login => login_enqueue_scripts
+4) Embed => enqueue_embed_scripts
