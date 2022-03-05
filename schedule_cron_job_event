@@ -1,0 +1,37 @@
+// Schedule Cron Job Event
+if ( ! wp_next_scheduled( 'your_cron_job_function_hook' ) ) {
+  wp_schedule_event( 
+    time(), // {{Timestamp}} GMT time => time(), Local Time => current_time( 'timestamp' ) 
+    'hourly', // {{Recurrence Interval}} hourly,twicedaily,daily.
+    'your_cron_job_function_hook' //Function Name
+  );
+}
+add_action('your_cron_job_function_hook', 'your_cron_job_function');
+function your_cron_job_function() {
+	// Your cron function
+};
+
+
+
+// Custom Cron Schedule Interval
+function your_cron_job_function_own( $schedules ) {
+	$schedules['custom_slug_name'] = array( // Custom Name/Slug ie. custom_slug_name
+		'interval'  => 180, // {{Recurrence Interval}} Custom Interval (in sec)
+		'display'   => __( 'Custom Label' ) //Custom Label
+	);
+	return $schedules;
+}
+add_filter( 'cron_schedules', 'your_cron_job_function_own' );
+if ( ! wp_next_scheduled( 'your_cron_job_function_hook' ) ) {
+	wp_schedule_event( 
+    time(), // {{Timestamp}} GMT time => time(), Local Time => current_time( 'timestamp' ) 
+    'custom_slug_name', // Custom Name/Slug ie. custom_slug_name
+    'your_cron_job_function_hook' //Function Name
+  );
+}
+
+add_action('your_cron_job_function_hook', 'your_cron_job_function');
+
+function your_cron_job_function() {
+	// Your cron function
+};
