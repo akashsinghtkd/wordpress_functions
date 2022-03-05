@@ -1,0 +1,37 @@
+// Create Shortcode
+
+// Shortcode: [new_shortcode], Type =>Self-closing
+function create__shortcode() {
+}
+add_shortcode( 'new_shortcode', 'create__shortcode' );
+
+
+
+// Shortcode: [new_shortcode attribute-name="value"], Type =>Self-closing
+function create__shortcode($atts) {
+	$atts = shortcode_atts(
+		array(
+			'attribute-name' => 'value',
+		),
+		$atts,
+		'new_shortcode'
+	);
+	$attribute-name = $atts['attribute-name'];=
+}
+add_shortcode( 'new_shortcode', 'create__shortcode' );
+
+
+
+// Create Shortcode new_shortcode
+// Shortcode: [new_shortcode attribute-name="value"]Content[/new_shortcode], Type =>enclosing
+function create__shortcode($atts, $content = null) {
+	$atts = shortcode_atts(
+		array(
+			'attribute-name' => 'value',
+		),
+		$atts,
+		'new_shortcode'
+	);
+	$attribute-name = $atts['attribute-name'];
+}
+add_shortcode( 'new_shortcode', 'create__shortcode' );
