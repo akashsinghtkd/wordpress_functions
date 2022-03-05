@@ -1,0 +1,10 @@
+// Register custom navigation menus
+function custom_nav_menus() {
+
+	$locations = array(
+		'menu_slug' => __( 'Menu Description', 'textdomain' ),
+	);
+	register_nav_menus( $locations );
+
+}
+add_action( 'init', 'custom_nav_menus' );
