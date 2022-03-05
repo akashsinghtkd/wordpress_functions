@@ -1,0 +1,16 @@
+// Register Post Status: custompoststatus
+function custompoststatus_post_status() {
+
+	register_post_status( 'custompoststatus', array(
+		'label'                     => _x( 'Custom Post Status', 'textdomain' ),
+		'label_count'               => _n_noop( 'Custom Post Status (%s)',  'Custom Post Status (%s)', 'textdomain' ),
+		'public'                    => false,
+		'internal'       			      => false,
+		'private'       			      => false,
+		'exclude_from_search'       => false,
+		'show_in_admin_all_list'    => true,
+		'show_in_admin_status_list' => false,
+	) );
+}
+
+add_action( 'init', 'custompoststatus_post_status' );
