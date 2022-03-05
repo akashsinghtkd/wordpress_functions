@@ -1,0 +1,19 @@
+// Enqueue own scripts
+function enqueue_custom_scripts() {
+	wp_enqueue_script( 
+    'script-name', //Name
+    get_template_directory_uri() .'sorce_url', // URL Path
+    array('Dependencies'), //Dependencies
+    Version, //Version
+    false //Location of the script
+  );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_custom_scripts' );
+
+
+
+Where to enqueue?
+1) Front end => wp_enqueue_scripts
+2) Admin => admin_enqueue_scripts
+3) Login => login_enqueue_scripts
+4) Embed => enqueue_embed_scripts
