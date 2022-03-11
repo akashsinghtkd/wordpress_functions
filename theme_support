@@ -1,0 +1,206 @@
+//////////////////////////////////////////
+//For printing
+//get_theme_mod('tp_home_page_image', 'default_value');
+/////////////////////////////////////////
+
+<?php 
+/**
+ * This action is use for add the theme support options
+ */
+function tp_theme_support_options() {
+    require_once get_template_directory() . '/class-wp-bootstrap-navwalker.php';
+    add_theme_support( 'custom-logo' );
+    add_theme_support(
+		'custom-logo',
+		array(
+			'height'      => 90,
+			'width'       => 120,
+			'flex-height' => true,
+			'flex-width'  => true,
+		)
+	);
+    add_theme_support( 'post-thumbnails', array( 'post', 'page' ) );
+    
+    register_sidebar(array(
+        'name' => 'Header',
+        'id'   => 'header',
+        'description'   => 'header',
+        'before_widget' => '<div class="address_bar" id="%1$s">',
+        'after_widget'  => '</div>',
+    ));
+    register_sidebar(array(
+        'name' => 'Above Footer',
+        'id'   => 'above_footer',
+        'description'   => 'Above Footer',
+        'before_widget' => '<div id="%1$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2>',
+        'after_title'   => '</h2>'
+    ));
+    
+    register_sidebar(array(
+        'name' => 'Footer',
+        'id'   => 'footer',
+        'description'   => 'Footer',
+        'before_widget' => '<div id="%1$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2>',
+        'after_title'   => '</h2>'
+    ));
+    register_sidebar(array(
+        'name' => 'Bottom Footer',
+        'id'   => 'bottom_footer',
+        'description'   => 'Bottom Footer',
+        'before_widget' => '<div id="%1$s">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h2>',
+        'after_title'   => '</h2>'
+    ));
+}
+add_action( 'after_setup_theme', 'tp_theme_support_options' );
+
+function tp_customizer_section($wp_customize) {
+    $wp_customize = tp_home_customizer_settings( $wp_customize );
+    $wp_customize = tp_artical_customizer_settings( $wp_customize );
+    $wp_customize = tp_location_customizer_settings( $wp_customize );
+}
+add_action('customize_register', 'tp_customizer_section');
+
+/**
+ * This function is use for adding the home page setting in customizer
+ */
+function tp_home_customizer_settings( $wp_customize ) {
+    $wp_customize->add_panel( 'tp_pan_additional_setting', array(
+        'title' => 'Additional Setting',
+        'priority' => 10,
+        'capability' => 'edit_theme_options'
+    ));
+    
+    $wp_customize->add_section( 'tp_sec_home' , array(
+        'title'       => 'Home',
+        'description' => 'Home page setting',
+        'panel' => 'tp_pan_additional_setting'
+    ));
+
+    $wp_customize->add_setting( 'tp_home_page_name', array(
+        'default' => 'Residential & Commerical <b>Window Tint</b>'
+    ));
+    $wp_customize->add_control( 'tp_home_page_name', array(
+        'label' => 'Name',
+        'section' => 'tp_sec_home',
+        'priority' => 1
+    ));
+
+    $wp_customize->add_setting( 'tp_home_page_detail', array(
+        'default' => 'We are committed to providing buisnesses and <br>consumers with the best Window Films in Arizona'
+    ));
+    $wp_customize->add_control( 'tp_home_page_detail', array(
+        'label' => 'Detail txt',
+        'section' => 'tp_sec_home',
+        'priority' => 2,
+        'type' => 'textarea'
+    ));
+
+    $wp_customize->add_setting( 'tp_home_page_button_text', array(
+        'default' => 'Free Estimate Now'
+    ));
+    $wp_customize->add_control( 'tp_home_page_button_text', array(
+        'label' => 'Button Text',
+        'section' => 'tp_sec_home',
+        'priority' => 3
+    ));
+
+    $wp_customize->add_setting( 'tp_home_page_button_url', array(
+        'default' => '#'
+    ));
+    $wp_customize->add_control( 'tp_home_page_button_url', array(
+        'label' => 'Button url',
+        'section' => 'tp_sec_home',
+        'priority' => 4
+    ));
+
+    $wp_customize->add_setting( 'tp_home_page_button_class', array(
+        'default' => ''
+    ));
+    $wp_customize->add_control( 'tp_home_page_button_class', array(
+        'label' => 'Button Class',
+        'section' => 'tp_sec_home',
+        'priority' => 5
+    ));
+
+    $wp_customize->add_setting( 'tp_home_page_button_id', array(
+        'default' => ''
+    ));
+    $wp_customize->add_control( 'tp_home_page_button_id', array(
+        'label' => 'Button ID',
+        'section' => 'tp_sec_home',
+        'priority' => 6
+    ));
+
+    $wp_customize->add_setting( 'tp_home_page_image', array(
+        'default' => ''
+    ));
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize,'tp_home_page_image', array(
+        'label' => 'Image',
+        'section' => 'tp_sec_home',
+        'priority' => 7
+    )));
+    return $wp_customize;
+}
+
+/**
+ * This function is use for adding the artical page setting in customizer
+ */
+function tp_artical_customizer_settings( $wp_customize ) {
+    $wp_customize->add_section( 'tp_sec_article' , array(
+        'title'       => 'Article',
+        'description' => 'Article page setting',
+        'panel' => 'tp_pan_additional_setting'
+    ));
+    $wp_customize->add_setting( 'tp_article_page_name', array(
+        'default' => 'Articles'
+    ));
+    $wp_customize->add_control( 'tp_article_page_name', array(
+        'label' => 'Name',
+        'section' => 'tp_sec_article',
+        'priority' => 1
+    ));
+    $wp_customize->add_setting( 'tp_article_page_image', array(
+        'default' => ''
+    ));
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize,'tp_article_page_image', array(
+        'label' => 'Image',
+        'section' => 'tp_sec_article',
+        'priority' => 2
+    )));
+    return $wp_customize;
+}
+
+/**
+ * This function is use for adding the location page setting in customizer
+ */
+function tp_location_customizer_settings( $wp_customize ) {
+    $wp_customize->add_section( 'tp_sec_location' , array(
+        'title'       => 'Location',
+        'description' => 'Location page setting',
+        'panel' => 'tp_pan_additional_setting'
+    ));
+    $wp_customize->add_setting( 'tp_location_page_name', array(
+        'default' => 'Locations'
+    ));
+    $wp_customize->add_control( 'tp_location_page_name', array(
+        'label' => 'Name',
+        'section' => 'tp_sec_location',
+        'priority' => 1
+    ));
+    $wp_customize->add_setting( 'tp_location_page_image', array(
+        'default' => ''
+    ));
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize,'tp_location_page_image', array(
+        'label' => 'Image',
+        'section' => 'tp_sec_location',
+        'priority' => 2
+    )));
+    return $wp_customize;   
+}
+
