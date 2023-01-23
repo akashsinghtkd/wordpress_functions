@@ -1,0 +1,26 @@
+/**
+* This function is use for upload image in specific path
+*
+* @param array $file
+* @param string $path
+* @return string
+*/
+function upload_images_in_specificPath(array $file, string $path = 'image-path'): string
+{
+    $uploaded_path = '';
+    if (isset($file) && !empty($file) && is_array($file)) {
+        $upload_dir = wp_upload_dir();
+
+        if (!empty($upload_dir['basedir'])) {
+            $user_dirname = $upload_dir['basedir'] . '/' . $path;
+            if (!file_exists($user_dirname)) {
+                wp_mkdir_p($user_dirname);
+            }
+
+            $filename = wp_unique_filename($user_dirname, $file['name']);
+            move_uploaded_file($file['tmp_name'], $user_dirname . '/' . $filename);
+            $uploaded_path = $upload_dir['baseurl'] . '/' . $path . '/' . $filename;
+        }
+    }
+    return $uploaded_path;
+}
